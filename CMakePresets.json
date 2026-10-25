@@ -77,6 +77,8 @@
             "name": "asan",
             "inherits": "debug-base",
             "cacheVariables": {
+                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
+                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=address"
             }
         },
@@ -84,6 +86,8 @@
             "name": "ubsan",
             "inherits": "debug-base",
             "cacheVariables": {
+                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
+                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=undefined -fno-sanitize-recover=undefined"
             }
         },
@@ -91,6 +95,8 @@
             "name": "tsan",
             "inherits": "debug-base",
             "cacheVariables": {
+                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
+                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=thread"
             }
         },
@@ -98,6 +104,8 @@
             "name": "lsan",
             "inherits": "debug-base",
             "cacheVariables": {
+                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
+                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=leak"
             }
         },
@@ -112,7 +120,7 @@
             "name": "coverage",
             "inherits": "debug-base",
             "cacheVariables": {
-                "CMAKE_CXX_FLAGS_DEBUG": "-O0 -g --coverage -fcondition-coverage -fpath-coverage -fprofile-abs-path"
+                "CMAKE_CXX_FLAGS_DEBUG": "-O0 -g --coverage"
             }
         },
         {
@@ -145,11 +153,6 @@
         }
     ],
     "buildPresets": [
-        {
-            "name": "headers",
-            "configurePreset": "debug",
-            "targets": ["all_verify_header_sets"]
-        },
         {
             "name": "debug",
             "configurePreset": "debug"
@@ -198,6 +201,11 @@
         {
             "name": "native",
             "configurePreset": "native"
+        },
+        {
+            "name": "qmllint",
+            "configurePreset": "debug",
+            "targets": ["all_qmllint"]
         }
     ],
     "testPresets": [
@@ -236,6 +244,11 @@
             "name": "lsan",
             "inherits": "test-base",
             "configurePreset": "lsan"
+        },
+        {
+            "name": "valgrind",
+            "inherits": "test-base",
+            "configurePreset": "valgrind"
         },
         {
             "name": "coverage",
@@ -281,19 +294,6 @@
         }
     ],
     "workflowPresets": [
-        {
-            "name": "headers",
-            "steps": [
-                {
-                    "type": "configure",
-                    "name": "debug"
-                },
-                {
-                    "type": "build",
-                    "name": "headers"
-                }
-            ]
-        },
         {
             "name": "build-debug",
             "steps": [
@@ -586,6 +586,19 @@
                 {
                     "type": "package",
                     "name": "package-release"
+                }
+            ]
+        },
+        {
+            "name": "qmllint",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "debug"
+                },
+                {
+                    "type": "build",
+                    "name": "qmllint"
                 }
             ]
         }

@@ -1,37 +1,23 @@
-add_library(template_iso_cpp_core STATIC)
+add_subdirectory(TemplateQt)
 
-target_sources(
-    template_iso_cpp_core
-    PRIVATE
-        todo.cpp
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}
-        FILES todo.hpp
-)
-
-add_executable(template_iso_cpp)
-
-target_sources(
-    template_iso_cpp
-    PRIVATE
-        main.cpp
-)
+qt_add_executable(template_qt main.cpp)
 
 set_target_properties(
-    template_iso_cpp
+    template_qt
     PROPERTIES
-        OUTPUT_NAME "template-iso-cpp"
+        OUTPUT_NAME "template-qt"
 )
 
 target_link_libraries(
-    template_iso_cpp
+    template_qt
     PRIVATE
-        template_iso_cpp_core
+        template_qt_ui
+        template_qt_uiplugin
+        Qt6::Quick
 )
 
 install(
-    TARGETS template_iso_cpp
+    TARGETS template_qt
     RUNTIME
     DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

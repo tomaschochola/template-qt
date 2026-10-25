@@ -6,7 +6,7 @@
     },
     "bugs": {
         "email": "tomaschochola@tomaschochola.cz",
-        "url": "https://github.com/tomaschochola/template-iso-cpp/issues"
+        "url": "https://github.com/tomaschochola/template-qt/issues"
     },
     "contributors": [
         {
@@ -15,7 +15,7 @@
             "url": "https://github.com/tomaschochola"
         }
     ],
-    "description": "ISO C++23 application template with testing and sanitizers.",
+    "description": "Qt Quick application template with C++23, QML, and Qt Test.",
     "devDependencies": {
         "@tomaschochola/tooling-prettier": "git+https://github.com/tomaschochola/tooling-prettier.git#main",
         "@tomaschochola/tooling-trimmer": "git+https://github.com/tomaschochola/tooling-trimmer.git#main"
@@ -24,20 +24,20 @@
         "type": "github",
         "url": "https://github.com/sponsors/tomaschochola"
     },
-    "homepage": "https://github.com/tomaschochola/template-iso-cpp",
+    "homepage": "https://github.com/tomaschochola/template-qt",
     "keywords": [
         "tomaschochola",
         "TomasChochola",
         "Tomas Chochola",
         "Tomáš Chochola",
-        "template-iso-cpp"
+        "template-qt"
     ],
     "license": "CC-BY-ND-4.0",
-    "name": "@tomaschochola/template-iso-cpp",
+    "name": "@tomaschochola/template-qt",
     "private": true,
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/tomaschochola/template-iso-cpp.git"
+        "url": "git+https://github.com/tomaschochola/template-qt.git"
     },
     "type": "module",
     "version": "0.0.0"

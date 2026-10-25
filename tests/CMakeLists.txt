@@ -1,16 +1,11 @@
 function(add_project_test test target label)
-    add_executable(${target} ${ARGN})
-
-    target_compile_options(
-        ${target}
-        PRIVATE
-            -UNDEBUG
-    )
+    qt_add_executable(${target} ${ARGN})
 
     target_link_libraries(
         ${target}
         PRIVATE
-            template_iso_cpp_core
+            template_qt_ui
+            Qt6::Test
     )
 
     add_test(
@@ -27,4 +22,4 @@ function(add_project_test test target label)
     )
 endfunction()
 
-add_project_test(unit.todo template_iso_cpp_tests unit test_todo.cpp)
+add_project_test(unit.todo template_qt_tests unit test_todo.cpp)

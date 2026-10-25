@@ -1,15 +1,20 @@
-#include <cassert>
+#include <QTest>
 
 #include "todo.hpp"
 
-static auto test_app_todo_returns_zero() noexcept -> void
+class TodoTest : public QObject
 {
-    assert(app::todo() == 0);
-}
+    Q_OBJECT
 
-[[nodiscard]] auto main() noexcept -> int
-{
-    test_app_todo_returns_zero();
+  private slots:
+    void message()
+    {
+        const app::Todo todo;
 
-    return 0;
-}
+        QCOMPARE(todo.message(), QStringLiteral("Hello, Qt!"));
+    }
+};
+
+QTEST_APPLESS_MAIN(TodoTest)
+
+#include "test_todo.moc"

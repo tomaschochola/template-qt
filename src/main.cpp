@@ -1,6 +1,14 @@
-#include "todo.hpp"
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
-[[nodiscard]] auto main() noexcept -> int
+auto main(int argc, char *argv[]) -> int
 {
-    return app::todo();
+    QGuiApplication application(argc, argv);
+    QQmlApplicationEngine engine;
+
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &application, [] { QCoreApplication::exit(1); }, Qt::QueuedConnection);
+
+    engine.loadFromModule("TemplateQt", "Main");
+
+    return application.exec();
 }

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This application uses ISO C++23 (ISO/IEC 14882:2024) on 64-bit GNU/Linux and is compiled with GCC's `g++`. It uses libstdc++ for the C++ standard library and glibc for the C standard library and GNU/Linux APIs, with `_GNU_SOURCE=1` enabled. CMake builds the application, CTest runs automated tests, and CPack creates binary packages.
+This application uses ISO C++23 (ISO/IEC 14882:2024) on 64-bit GNU/Linux and is compiled with GCC's `g++`. It uses libstdc++ for the C++ standard library and glibc for the C standard library and GNU/Linux APIs, with `_GNU_SOURCE=1` enabled. The GUI uses Qt Quick and QML. CMake builds the application, CTest runs automated tests, and CPack creates binary packages.
 
 ## Target platform
 
@@ -18,7 +18,7 @@ This application uses ISO C++23 (ISO/IEC 14882:2024) on 64-bit GNU/Linux and is 
 
 - Compiler: GCC
 - Build system: CMake
-- Automated tests: CTest
+- Automated tests: CTest, Qt Test, Qt Quick Test
 - Packaging: CPack
 
 ## Language and warnings
@@ -59,6 +59,9 @@ The build defines [`_GNU_SOURCE=1`](https://www.sourceware.org/glibc/manual/2.43
 - cpack 4.4
 - gcov 16.0
 - clang-format 21.1
+- qt 6.12
+- qmllint 6.12
+- qmlformat 6.12
 
 ## EditorConfig
 
@@ -135,6 +138,8 @@ LineEnding: LF
 |-- package-lock.json
 |-- package.json
 |-- prettier.config.js
+|-- quicktests/
+|   `-- ...
 |-- src/
 |   `-- ...
 `-- tests/
@@ -144,12 +149,12 @@ LineEnding: LF
 ## Makefile targets
 
 - `never`: Require an explicit target.
-- `fix`: `prettier_fix` + `clang_format_fix` + `trimmer_fix`
-- `check`: `doctor` + `lint` + `headers` + `test` + `all` + `audit`
+- `fix`: `prettier_fix` + `clang_format_fix` + `qml_format_fix` + `trimmer_fix`
+- `check`: `doctor` + `lint` + `test` + `all` + `audit`
 - `doctor`: `git_check` + `npm_config_check` + `npm_doctor` + `npm_check` + `toolchain_check`
-- `lint`: `prettier_check` + `clang_format_check` + `trimmer_check`
+- `lint`: `prettier_check` + `clang_format_check` + `qml_format_check` + `qmllint` + `trimmer_check`
 - `test`: Run all tests.
-- `headers`: Check headers.
+- `qmllint`: Check QML files with qmllint.
 - `debug`: Build the debug application.
 - `coverage`: Report test coverage.
 - `valgrind`: Run all tests with Valgrind.
@@ -185,6 +190,8 @@ LineEnding: LF
 - `trimmer_check`: `./node_modules/.package-lock.json` + `./package.json` + `./package-lock.json` — Check whitespace formatting.
 - `prettier_fix`: `./node_modules/.package-lock.json` + `./package.json` + `./package-lock.json` + `./prettier.config.js` — Format files with Prettier.
 - `prettier_check`: `./node_modules/.package-lock.json` + `./package.json` + `./package-lock.json` + `./prettier.config.js` — Check formatting with Prettier.
+- `qml_format_fix`: Format QML files with qmlformat.
+- `qml_format_check`: Check formatting with qmlformat.
 - `clang_format_fix`: `./.clang-format` — Format code with clang-format.
 - `clang_format_check`: `./.clang-format` — Check formatting with clang-format.
 - `npm_config_check`: `./.npmrc` — Check npm configuration.

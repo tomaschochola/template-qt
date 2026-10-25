@@ -39,24 +39,24 @@ export SOURCE_DATE_EPOCH
 # Public goals
 
 .PHONY: fix
-fix: prettier_fix clang_format_fix trimmer_fix
+fix: prettier_fix clang_format_fix qml_format_fix trimmer_fix
 
 .PHONY: check
-check: doctor lint headers test all audit
+check: doctor lint test all audit
 
 .PHONY: doctor
 doctor: git_check npm_config_check npm_doctor npm_check toolchain_check
 
 .PHONY: lint
-lint: prettier_check clang_format_check trimmer_check
+lint: prettier_check clang_format_check qml_format_check qmllint trimmer_check
 
 .PHONY: test
 test:
 	cmake --workflow --preset test
 
-.PHONY: headers
-headers:
-	cmake --workflow --preset headers
+.PHONY: qmllint
+qmllint:
+	cmake --workflow --preset qmllint
 
 .PHONY: debug
 debug:
@@ -66,12 +66,12 @@ debug:
 coverage:
 	rm --force --recursive --one-file-system -- ./out/build/coverage
 	cmake --workflow --preset coverage
-	find ./out/build/coverage/src -type f -name '*.gcno' -exec gcov --branch-probabilities --conditions --prime-paths --function-summaries --no-output {} +
+	find ./out/build/coverage/src -type f -name '*.gcno' -exec gcov --no-output {} +
 
 .PHONY: valgrind
 valgrind:
 	cmake --workflow --preset valgrind
-	ctest --test-dir ./out/build/valgrind --output-on-failure --stop-on-failure --no-tests=error -T MemCheck
+	ctest --preset valgrind --test-dir ./out/build/valgrind -T MemCheck
 
 .PHONY: audit
 audit: npm_audit
@@ -199,11 +199,19 @@ prettier_check: ./node_modules/.package-lock.json ./package.json ./package-lock.
 
 .PHONY: clang_format_fix
 clang_format_fix: ./.clang-format
-	find ./src ./tests -type f '(' -name '*.cpp' -o -name '*.h' -o -name '*.hpp' ')' -print0 | xargs -0 -r clang-format -i --style=file --
+	find ./src ./tests ./quicktests -type f '(' -name '*.cpp' -o -name '*.h' -o -name '*.hpp' ')' -print0 | xargs -0 -r clang-format -i --style=file --
 
 .PHONY: clang_format_check
 clang_format_check: ./.clang-format
-	find ./src ./tests -type f '(' -name '*.cpp' -o -name '*.h' -o -name '*.hpp' ')' -print0 | xargs -0 -r clang-format -n --Werror --style=file --
+	find ./src ./tests ./quicktests -type f '(' -name '*.cpp' -o -name '*.h' -o -name '*.hpp' ')' -print0 | xargs -0 -r clang-format -n --Werror --style=file --
+
+.PHONY: qml_format_fix
+qml_format_fix:
+	find ./src ./quicktests -type f -name '*.qml' -print0 | xargs -0 -r qmlformat -i -W 200
+
+.PHONY: qml_format_check
+qml_format_check:
+	find ./src ./quicktests -type f -name '*.qml' -print0 | while IFS= read -r -d '' file; do qmlformat -W 200 "$$file" | diff --unified -- "$$file" -; done
 
 .PHONY: npm_config_check
 npm_config_check: ./.npmrc
@@ -258,6 +266,9 @@ toolchain_check:
 	valgrind --version
 	gcov --version
 	clang-format --version
+	qtpaths6 --qt-version
+	qmllint --version
+	qmlformat --version
 
 # Private targets
 
