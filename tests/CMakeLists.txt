@@ -1,6 +1,12 @@
 function(add_project_test test target label)
     qt_add_executable(${target} ${ARGN})
 
+    target_compile_options(
+        ${target}
+        PRIVATE
+            -UNDEBUG
+    )
+
     target_link_libraries(
         ${target}
         PRIVATE

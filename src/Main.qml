@@ -5,7 +5,7 @@ ApplicationWindow {
     width: 480
     height: 320
     visible: true
-    title: qsTr("Template Qt")
+    title: qsTr("github.com/tomaschochola/template-qt")
 
     TodoView {
         anchors.centerIn: parent

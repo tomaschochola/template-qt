@@ -8,7 +8,7 @@ TodoView {
         name: "TodoView"
 
         function test_message() {
-            compare(view.text, "Hello, Qt!");
+            compare(view.text, "Hello, world!");
         }
     }
 }

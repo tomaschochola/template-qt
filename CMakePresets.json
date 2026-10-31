@@ -77,8 +77,6 @@
             "name": "asan",
             "inherits": "debug-base",
             "cacheVariables": {
-                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
-                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=address"
             }
         },
@@ -86,8 +84,6 @@
             "name": "ubsan",
             "inherits": "debug-base",
             "cacheVariables": {
-                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
-                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=undefined -fno-sanitize-recover=undefined"
             }
         },
@@ -95,8 +91,6 @@
             "name": "tsan",
             "inherits": "debug-base",
             "cacheVariables": {
-                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
-                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=thread"
             }
         },
@@ -104,8 +98,6 @@
             "name": "lsan",
             "inherits": "debug-base",
             "cacheVariables": {
-                "CMAKE_COMPILE_WARNING_AS_ERROR": false,
-                "CMAKE_LINK_WARNING_AS_ERROR": false,
                 "CMAKE_CXX_FLAGS_DEBUG": "-Og -g -fno-omit-frame-pointer -fsanitize=leak"
             }
         },

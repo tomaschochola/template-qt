@@ -23,18 +23,21 @@ add_compile_options(
     -pedantic-errors
 )
 
-add_compile_definitions(_GNU_SOURCE=1)
+add_compile_definitions(
+    _GNU_SOURCE=1
+    QT_ENABLE_STRICT_MODE_UP_TO=0x060C00
+)
 
 find_package(Qt6 6.12 REQUIRED COMPONENTS Quick QuickControls2 Network)
 qt_standard_project_setup(REQUIRES 6.12)
 
+set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
+
 include(CheckPIESupported)
 check_pie_supported(LANGUAGES CXX)
 
-set(
-    MEMORYCHECK_COMMAND_OPTIONS
-    "-q --tool=memcheck --leak-check=full --error-exitcode=255"
-)
+set(MEMORYCHECK_COMMAND_OPTIONS "-q --tool=memcheck --leak-check=full --error-exitcode=255")
+set(MEMORYCHECK_SUPPRESSIONS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/tests/valgrind.supp")
 
 include(CTest)
 

@@ -1,5 +1,11 @@
 qt_add_executable(template_qt_quicktests main.cpp)
 
+target_compile_options(
+    template_qt_quicktests
+    PRIVATE
+        -UNDEBUG
+)
+
 qt_add_qml_module(
     template_qt_quicktests
     URI TemplateQtTests
