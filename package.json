@@ -32,7 +32,7 @@
         "Tomáš Chochola",
         "template-qt"
     ],
-    "license": "CC-BY-ND-4.0",
+    "license": "BSD-3-Clause",
     "name": "@tomaschochola/template-qt",
     "private": true,
     "repository": {

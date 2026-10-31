@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 4.4)
 project(
     template_qt
     VERSION 0.0.0
-    SPDX_LICENSE "CC-BY-ND-4.0"
+    SPDX_LICENSE "BSD-3-Clause"
     DESCRIPTION "Qt Quick application template with C++23, QML, and Qt Test."
     HOMEPAGE_URL "https://github.com/tomaschochola/template-qt"
     LANGUAGES CXX
