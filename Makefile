@@ -134,7 +134,7 @@ installcheck:
 	xargs --no-run-if-empty --delimiter='\n' --replace='{}' test -f "$(DESTDIR){}" < ./out/build/native/install_manifest_Unspecified.txt
 
 .PHONY: lint
-lint: prettier_check clang_format_check qml_format_check qmllint trimmer_check
+lint: prettier_check clang_format_check qml_format_check qmllint shellcheck trimmer_check
 
 .PHONY: linux_amd64_v1
 linux_amd64_v1:
@@ -205,11 +205,11 @@ prettier_fix: ./node_modules/.package-lock.json ./package.json ./package-lock.js
 
 .PHONY: qml_format_check
 qml_format_check:
-	find ./src ./quicktests -type f -name '*.qml' -print0 | while IFS= read -r -d '' file; do qmlformat -W 200 "$$file" | diff --unified -- "$$file" -; done
+	find ./src ./quicktests -type f -name '*.qml' -print0 | while IFS= read -r -d '' file; do qmlformat -W -1 "$$file" | diff --unified -- "$$file" -; done
 
 .PHONY: qml_format_fix
 qml_format_fix:
-	find ./src ./quicktests -type f -name '*.qml' -print0 | xargs -0 -r qmlformat -i -W 200
+	find ./src ./quicktests -type f -name '*.qml' -print0 | xargs -0 -r qmlformat -i -W -1
 
 .PHONY: qmllint
 qmllint: ./.qmllint.ini
@@ -218,6 +218,12 @@ qmllint: ./.qmllint.ini
 .PHONY: release
 release:
 	cmake --workflow --preset build-release
+
+.PHONY: shellcheck
+shellcheck:
+	command -v shellcheck >/dev/null
+	git ls-files -z -- '*.sh' | xargs --null --no-run-if-empty env -u SHELLCHECK_OPTS shellcheck --shell=sh --norc --severity=style --enable=all --external-sources --check-sourced --source-path=SCRIPTDIR --
+	git ls-files -z -- '*.bash' | xargs --null --no-run-if-empty env -u SHELLCHECK_OPTS shellcheck --shell=bash --norc --severity=style --enable=all --external-sources --check-sourced --source-path=SCRIPTDIR --
 
 .PHONY: test
 test:

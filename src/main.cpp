@@ -6,7 +6,12 @@
     QGuiApplication application(argc, argv);
     QQmlApplicationEngine engine;
 
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &application, [] { QCoreApplication::exit(1); }, Qt::QueuedConnection);
+    auto handleCreationFailure = []()
+    {
+        QCoreApplication::exit(1);
+    };
+
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &application, handleCreationFailure, Qt::QueuedConnection);
 
     engine.loadFromModule("TemplateQt", "Main");
 

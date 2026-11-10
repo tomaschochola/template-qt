@@ -11,7 +11,7 @@ namespace app
     {
         Q_OBJECT
         QML_ELEMENT
-        Q_PROPERTY(QString message READ message CONSTANT)
+        Q_PROPERTY(QString message READ message CONSTANT FINAL)
 
       public:
         using QObject::QObject;
