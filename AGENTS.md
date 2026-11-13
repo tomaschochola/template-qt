@@ -1,9 +1,5 @@
 # AGENTS.md
 
-Edit AGENTS.md and README.md only when explicitly requested.
-
-Freely manage PLAN.md, NOTES.md, and ARCHITECTURE.md for your own work. Keep them gitignored and never commit them.
-
 ## Language
 
 - ISO/IEC 14882:2024 (C++23)
