@@ -4,14 +4,12 @@
 
 using namespace Qt::StringLiterals;
 
-class TodoTest : public QObject
-{
+class TodoTest : public QObject {
     Q_OBJECT
 
   private slots:
 
-    void message()
-    {
+    void message() {
         const app::Todo todo;
 
         QCOMPARE_EQ(todo.message(), u"Hello, world!"_s);

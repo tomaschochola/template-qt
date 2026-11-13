@@ -1,13 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-[[nodiscard]] auto main(int argc, char *argv[]) -> int
-{
+[[nodiscard]] auto main(int argc, char *argv[]) -> int {
     QGuiApplication application(argc, argv);
     QQmlApplicationEngine engine;
 
-    auto handleCreationFailure = []()
-    {
+    auto handleCreationFailure = []() {
         QCoreApplication::exit(1);
     };
 

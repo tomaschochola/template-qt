@@ -2,11 +2,9 @@
 
 using namespace Qt::StringLiterals;
 
-namespace app
-{
+namespace app {
 
-    auto Todo::message() const noexcept -> QString
-    {
+    auto Todo::message() const noexcept -> QString {
         return u"Hello, world!"_s;
     }
 

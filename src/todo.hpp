@@ -4,11 +4,9 @@
 #include <QString>
 #include <QtQml/qqmlregistration.h>
 
-namespace app
-{
+namespace app {
 
-    class Todo : public QObject
-    {
+    class Todo : public QObject {
         Q_OBJECT
         QML_ELEMENT
         Q_PROPERTY(QString message READ message CONSTANT FINAL)
