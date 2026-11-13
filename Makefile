@@ -45,7 +45,7 @@ asan:
 audit: npm_audit
 
 .PHONY: check
-check: doctor lint test all audit
+check: doctor lint test sanitize all audit
 
 .PHONY: clang_format_check
 clang_format_check: ./.clang-format
@@ -218,6 +218,9 @@ qmllint: ./.qmllint.ini
 .PHONY: release
 release:
 	cmake --workflow --preset build-release
+
+.PHONY: sanitize
+sanitize: asan lsan tsan ubsan
 
 .PHONY: shellcheck
 shellcheck:
