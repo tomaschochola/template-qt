@@ -230,7 +230,10 @@
         {
             "name": "tsan",
             "inherits": "test-base",
-            "configurePreset": "tsan"
+            "configurePreset": "tsan",
+            "environment": {
+                "TSAN_OPTIONS": "suppressions=${sourceDir}/tests/tsan.supp:exitcode=66"
+            }
         },
         {
             "name": "lsan",
@@ -240,7 +243,10 @@
         {
             "name": "valgrind",
             "inherits": "test-base",
-            "configurePreset": "valgrind"
+            "configurePreset": "valgrind",
+            "environment": {
+                "QT_HASH_SEED": "0"
+            }
         },
         {
             "name": "coverage",

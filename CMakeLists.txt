@@ -37,7 +37,6 @@ include(CheckPIESupported)
 check_pie_supported(LANGUAGES CXX)
 
 set(MEMORYCHECK_COMMAND_OPTIONS "-q --tool=memcheck --leak-check=full --error-exitcode=255")
-set(MEMORYCHECK_SUPPRESSIONS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/tests/valgrind.supp")
 
 include(CTest)
 

@@ -1,0 +1,3 @@
+race:libQt6Test.so.6
+race:QObject::moveToThread
+thread:^QThread::start(QThread::Priority)$
