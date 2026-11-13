@@ -61,9 +61,14 @@ clean:
 
 .PHONY: coverage
 coverage:
-	rm --force --recursive --one-file-system -- ./out/build/coverage
+	command -v gcovr >/dev/null
+	rm --force --recursive --one-file-system -- ./out/build/coverage ./out/coverage
 	cmake --workflow --preset coverage
-	find ./out/build/coverage/src -type f -name '*.gcno' -exec gcov --no-output {} +
+	test -n "$$(find ./out/build/coverage/src -type f -name '*.gcno' -print -quit)"
+	test -n "$$(find ./out/build/coverage -type f -name '*.gcda' -print -quit)"
+	mkdir --parents -- ./out/coverage/html
+	gcovr --root . --filter '^src/' --print-summary --html-details ./out/coverage/html/index.html ./out/build/coverage
+	test -s ./out/coverage/html/index.html
 
 .PHONY: debug
 debug:
@@ -240,6 +245,7 @@ toolchain_check:
 	ctest --version
 	valgrind --version
 	gcov --version
+	gcovr --version
 	clang-format --version
 	qtpaths6 --qt-version
 	qmllint --version
