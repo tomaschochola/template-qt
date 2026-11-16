@@ -1,4 +1,7 @@
-qt_add_executable(template_qt_quicktests main.cpp)
+qt_add_executable(
+    template_qt_quicktests
+    main.cpp
+)
 
 target_compile_options(
     template_qt_quicktests
@@ -9,8 +12,10 @@ target_compile_options(
 qt_add_qml_module(
     template_qt_quicktests
     URI TemplateQtTests
-    QML_FILES tst_todo.qml
-    DEPENDENCIES TARGET template_qt_ui
+    QML_FILES
+        tst_greeting.qml
+    DEPENDENCIES
+        TARGET template_qt_ui
 )
 
 target_link_libraries(
@@ -22,12 +27,17 @@ target_link_libraries(
 )
 
 add_test(
-    NAME quick.todo
-    COMMAND template_qt_quicktests -input :/qt/qml/TemplateQtTests -platform offscreen
+    NAME quick.greeting
+    COMMAND
+        template_qt_quicktests
+        -input
+        :/qt/qml/TemplateQtTests
+        -platform
+        offscreen
 )
 
 set_tests_properties(
-    quick.todo
+    quick.greeting
     PROPERTIES
         TIMEOUT 60
         LABELS quick

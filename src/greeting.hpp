@@ -6,7 +6,7 @@
 
 namespace app {
 
-    class Todo : public QObject {
+    class Greeting : public QObject {
         Q_OBJECT
         QML_ELEMENT
         Q_PROPERTY(QString message READ message CONSTANT FINAL)

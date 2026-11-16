@@ -1,11 +1,11 @@
 import QtTest
 import TemplateQt
 
-TodoView {
+GreetingView {
     id: view
 
     TestCase {
-        name: "TodoView"
+        name: "GreetingView"
 
         function test_message() {
             compare(view.text, "Hello, world!");

@@ -5,9 +5,9 @@ ApplicationWindow {
     width: 480
     height: 320
     visible: true
-    title: qsTr("github.com/tomaschochola/template-qt")
+    title: Qt.application.name
 
-    TodoView {
+    GreetingView {
         anchors.centerIn: parent
     }
 }

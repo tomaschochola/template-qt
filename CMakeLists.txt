@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 4.4)
 
 project(
-    template_qt
+    template-qt
     VERSION 0.0.0
     SPDX_LICENSE "BSD-3-Clause"
     DESCRIPTION "github.com/tomaschochola/template-qt"
     HOMEPAGE_URL "https://github.com/tomaschochola/template-qt"
-    LANGUAGES CXX
+    LANGUAGES
+        CXX
 )
 
 set(CMAKE_CXX_STANDARD 23)
@@ -28,13 +29,22 @@ add_compile_definitions(
     QT_ENABLE_STRICT_MODE_UP_TO=0x060C00
 )
 
-find_package(Qt6 6.12 REQUIRED COMPONENTS Quick QuickControls2 Network)
+find_package(
+    Qt6 6.12 REQUIRED
+    COMPONENTS
+        Quick
+        QuickControls2
+        Network
+)
 qt_standard_project_setup(REQUIRES 6.12)
 
 set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
 
 include(CheckPIESupported)
-check_pie_supported(LANGUAGES CXX)
+check_pie_supported(
+    LANGUAGES
+        CXX
+)
 
 set(MEMORYCHECK_COMMAND_OPTIONS "-q --tool=memcheck --leak-check=full --error-exitcode=255")
 
@@ -43,17 +53,23 @@ include(CTest)
 add_subdirectory(src)
 
 if(BUILD_TESTING)
-    find_package(Qt6 REQUIRED COMPONENTS Test QuickTest)
+    find_package(
+        Qt6 REQUIRED
+        COMPONENTS
+            Test
+            QuickTest
+    )
     add_subdirectory(tests)
     add_subdirectory(quicktests)
 endif()
 
 install(
-    FILES LICENSE
-    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/template-qt"
+    FILES
+        LICENSE
+    DESTINATION "${CMAKE_INSTALL_DOCDIR}"
 )
 
-set(CPACK_PACKAGE_NAME "template-qt")
+set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
 set(CPACK_PACKAGE_VENDOR "Tomáš Chochola")
 set(CPACK_GENERATOR "TGZ")
 set(CPACK_PACKAGE_CHECKSUM "SHA256")

@@ -45,7 +45,7 @@ asan:
 audit: npm_audit
 
 .PHONY: check
-check: doctor lint test sanitize valgrind all audit
+check: doctor lint test smoke sanitize valgrind all audit
 
 .PHONY: clang_format_check
 clang_format_check: ./.clang-format
@@ -73,6 +73,7 @@ command_check:
 	command -v gcov >/dev/null
 	command -v gcovr >/dev/null
 	command -v git >/dev/null
+	command -v grep >/dev/null
 	command -v make >/dev/null
 	command -v mkdir >/dev/null
 	command -v ninja >/dev/null
@@ -86,6 +87,7 @@ command_check:
 ifneq ($(strip $(SUDO)),)
 	command -v $(firstword $(SUDO)) >/dev/null
 endif
+	command -v timeout >/dev/null
 	command -v valgrind >/dev/null
 	command -v xargs >/dev/null
 
@@ -166,6 +168,7 @@ install:
 installcheck:
 	test -f ./out/build/native/install_manifest_Unspecified.txt
 	xargs --no-run-if-empty --delimiter='\n' --replace='{}' test -f "$(DESTDIR){}" < ./out/build/native/install_manifest_Unspecified.txt
+	grep --extended-regexp -- '/template-qt$$' ./out/build/native/install_manifest_Unspecified.txt | xargs --no-run-if-empty --delimiter='\n' --replace='{}' test -x "$(DESTDIR){}"
 
 .PHONY: lint
 lint: prettier_check clang_format_check qml_format_check qmllint shellcheck trimmer_check
@@ -260,6 +263,11 @@ sanitize: asan lsan tsan ubsan
 shellcheck:
 	fd --case-sensitive --hidden --exclude .git --type file --glob '*.sh' --exec-batch env -u SHELLCHECK_OPTS shellcheck --shell=sh --norc --severity=style --enable=all --external-sources --check-sourced --source-path=SCRIPTDIR --
 	fd --case-sensitive --hidden --exclude .git --type file --glob '*.bash' --exec-batch env -u SHELLCHECK_OPTS shellcheck --shell=bash --norc --severity=style --enable=all --external-sources --check-sourced --source-path=SCRIPTDIR --
+
+.PHONY: smoke
+smoke: native
+	QT_QPA_PLATFORM=offscreen timeout --kill-after=1s 10s ./out/build/native/src/template-qt --help >/dev/null
+	QT_QPA_PLATFORM=offscreen timeout --kill-after=1s 10s ./out/build/native/src/template-qt --version >/dev/null
 
 .PHONY: test
 test:

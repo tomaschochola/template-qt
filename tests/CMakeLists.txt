@@ -1,5 +1,8 @@
 function(add_project_test test target label)
-    qt_add_executable(${target} ${ARGN})
+    qt_add_executable(
+        ${target}
+        ${ARGN}
+    )
 
     target_compile_options(
         ${target}
@@ -16,7 +19,8 @@ function(add_project_test test target label)
 
     add_test(
         NAME ${test}
-        COMMAND ${target}
+        COMMAND
+            ${target}
     )
 
     set_tests_properties(
@@ -28,4 +32,9 @@ function(add_project_test test target label)
     )
 endfunction()
 
-add_project_test(unit.todo template_qt_tests unit test_todo.cpp)
+add_project_test(
+    unit.greeting
+    template_qt_tests
+    unit
+    test_greeting.cpp
+)
