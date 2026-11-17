@@ -32,9 +32,4 @@ function(add_project_test test target label)
     )
 endfunction()
 
-add_project_test(
-    unit.greeting
-    template_qt_tests
-    unit
-    test_greeting.cpp
-)
+add_project_test(unit.greeting template_qt_tests unit test_greeting.cpp)
