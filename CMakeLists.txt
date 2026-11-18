@@ -17,26 +17,32 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)
 
-add_compile_options(
-    -Wall
-    -Wextra
-    -Wpedantic
-    -pedantic-errors
+add_library(project_compile_options INTERFACE)
+
+target_compile_options(
+    project_compile_options
+    INTERFACE
+        -Wall
+        -Wextra
+        -Wpedantic
+        -pedantic-errors
 )
 
-add_compile_definitions(
-    _GNU_SOURCE=1
-    QT_ENABLE_STRICT_MODE_UP_TO=0x060C00
+target_compile_definitions(
+    project_compile_options
+    INTERFACE
+        _GNU_SOURCE=1
+        QT_ENABLE_STRICT_MODE_UP_TO=0x060A00
 )
 
 find_package(
-    Qt6 6.12 REQUIRED
+    Qt6 6.10 REQUIRED
     COMPONENTS
         Quick
         QuickControls2
         Network
 )
-qt_standard_project_setup(REQUIRES 6.12)
+qt_standard_project_setup(REQUIRES 6.10)
 
 set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
 

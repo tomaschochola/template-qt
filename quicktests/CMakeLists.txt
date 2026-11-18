@@ -21,6 +21,7 @@ qt_add_qml_module(
 target_link_libraries(
     template_qt_quicktests
     PRIVATE
+        project_compile_options
         template_qt_ui
         template_qt_uiplugin
         Qt6::QuickTest

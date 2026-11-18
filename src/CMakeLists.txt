@@ -31,10 +31,13 @@ target_link_libraries(
         Qt6::Core
         Qt6::Qml
     PRIVATE
+        project_compile_options
         Qt6::Quick
         Qt6::QuickControls2
         Qt6::Network
 )
+
+target_link_libraries(template_qt_uiplugin PRIVATE project_compile_options)
 
 qt_add_executable(
     template_qt
@@ -56,6 +59,7 @@ set_target_properties(
 target_link_libraries(
     template_qt
     PRIVATE
+        project_compile_options
         template_qt_ui
         template_qt_uiplugin
         Qt6::Quick
